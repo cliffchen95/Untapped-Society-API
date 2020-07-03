@@ -1,13 +1,30 @@
 # Untapped-Society-API
-
+### Dependancies: 
+- flask: host server
+- peewee: ORM
+- postgreSQL: database
 ## Data Model
-#### Job seeker
-Users that are using the website to seek opportunity and gain information.
+#### User
 ##### unique information
 - username
 - password
-- profile photo
-- bio
+- type: Job seeker/Company
+
+#### Job Seeker Information
+- ref to user
+- education
+- name
+- DOB
+- email
+- location
+- resume
+- language
+- ethnicity/nationality
+- skillset
+- industry
+- payrange
+
+---
 
 ## Routes
 #### User interaction
