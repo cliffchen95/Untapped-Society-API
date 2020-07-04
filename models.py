@@ -1,8 +1,9 @@
 from peewee import *
+from flask_login import UserMixin
 
 DATABASE = SqliteDatabase('data.sqlite')
 
-class User(Model):
+class User(UserMixin, Model):
   username=CharField(unique=True)
   password=CharField()
   jobseeker=BooleanField() ## True if the User is a Job seeker
