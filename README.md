@@ -31,5 +31,9 @@
 - /user/login
 - /user/logout
 - /user/create
-- /user/delete
+- /user/delete : can work on it later.
 - /user/update
+
+#### Jobseeker profile
+- /profile/create : create a profile for a jobseeker
+- /profile/update : update profile
