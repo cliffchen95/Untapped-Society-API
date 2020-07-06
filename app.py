@@ -3,6 +3,7 @@ from flask_login import LoginManager
 
 import models
 from resources.users import users
+from resources.profiles import profiles
 
 PORT=8000
 DEBUG=True
@@ -36,6 +37,7 @@ def unauthorized():
   ), 401
 
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(profiles, url_prefix='/api/v1/profiles')
 
 @app.route('/')
 def hello():

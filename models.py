@@ -22,6 +22,7 @@ class JobSeekerInfo(Model):
   skillset=CharField()
   industry=CharField()
   payrange=CharField()
+  user=ForeignKeyField(User, backref="JobSeekerInfo")
 
   class Meta:
     database = DATABASE
