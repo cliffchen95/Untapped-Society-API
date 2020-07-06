@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, jsonify
 from flask_login import LoginManager
 
 import models
@@ -23,6 +23,8 @@ def load_user(user_id):
   except models.DoesNotExist:
     return None
 
+## unauthorized handler, called after login_required call and 
+## no user is logged in
 @login_manager.unauthorized_handler
 def unauthorized():
   return jsonify(
