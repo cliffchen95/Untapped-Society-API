@@ -73,8 +73,8 @@ def user_login():
       status=401
     ), 401
 
-  ## user/logout
-  ## User logout route
+## user/logout
+## User logout route
 @users.route('logout', methods=['GET'])
 @login_required
 def user_logout():
@@ -82,5 +82,21 @@ def user_logout():
   return jsonify(
     data={},
     message="Successfully logged out",
+    status=200
+  ), 200
+
+## user/update
+## User update route
+@users.route('update', methods=['PATCH'])
+@login_required
+def user_update():
+  payload = request.get_json()
+
+  User.update(payload).where(
+    User.id == current_user.id).execute()
+  
+  return jsonify(
+    data={},
+    message=f"Successfully updated user with id {current_user.id}",
     status=200
   ), 200
