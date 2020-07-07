@@ -36,4 +36,33 @@ def create_profile():
     message=f"Successfully set up profile for user {profile_dict['user']['username']}",
     status=201
   ), 201
-  
+
+
+## profiles/update
+## Profile update route: update specific field of information
+@profiles.route('/update/<id>', methods=['PATCH'])
+@login_required
+def update_profile(id):
+  payload = request.get_json()
+
+  try:
+    JobSeekerInfo.update(payload).where(
+        (JobSeekerInfo.id == id) & 
+        (JobSeekerInfo.user_id == current_user.id)).execute()
+    updated = JobSeekerInfo.get_by_id(id)
+    updated_dict = model_to_dict(updated)
+    updated_dict['user'].pop('password')
+    return jsonify(
+      data={"updated_profile": updated_dict},
+      message=f"Successfully updated profile with id {id}",
+      status=200
+    ), 200
+
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message="Profile not avaliable to update",
+      status=400
+    ), 400
+
+
