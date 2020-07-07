@@ -27,9 +27,41 @@ class JobSeekerInfo(Model):
   class Meta:
     database = DATABASE
 
+class CompanyInfo(Model):
+  user=ForeignKeyField(User, backref="CompanyInfo")
+  name=CharField()
+  description=CharField()
+
+  class Meta:
+    database = DATABASE
+
+class JobPost(Model):
+  company=ForeignKeyField(CompanyInfo, backref="Posting")
+  title=CharField()
+  description=CharField()
+
+  class Meta:
+    database = DATABASE
+
+class JobApplication(Model):
+  user=ForeignKeyField(User, backref="Application")
+  position=ForeignKeyField(JobPost, backref="Job")
+
+  class Meta:
+    database = DATABASE
+
 def initialize():
   DATABASE.connect()
-  DATABASE.create_tables([User, JobSeekerInfo], safe=True)
+  DATABASE.create_tables(
+    [
+      User, 
+      JobSeekerInfo,
+      CompanyInfo,
+      JobPost,
+      JobApplication
+    ], 
+    safe=True
+  )
   print('connected to database')
 
   DATABASE.close()
