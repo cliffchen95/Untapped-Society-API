@@ -11,7 +11,7 @@
 - type: Job seeker/Company
 
 #### Job Seeker Information
-- ref to user
+- ref to user(job seeker)
 - education
 - name
 - DOB
@@ -23,6 +23,20 @@
 - skillset
 - industry
 - payrange
+
+#### Company Information
+- ref to user(company)
+- name
+- description/industry
+
+#### Job Application
+- ref to user(job seeker)
+- ref to position
+
+#### Job Position
+- ref to user(company)
+- title
+- description
 
 ---
 
