@@ -4,11 +4,8 @@ from flask_login import LoginManager
 import models
 from resources.users import users
 from resources.profiles import profiles
-<<<<<<< HEAD
 from resources.jobposts import jobposts
-=======
 from resources.companies import companies
->>>>>>> d411eab1bce4ae17580ea11949e8d276dcf408d8
 
 PORT=8000
 DEBUG=True

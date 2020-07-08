@@ -28,6 +28,11 @@ def jobpost_create():
 		)
 
 	jobpost_dict = model_to_dict(jobpost)
+	jobpost_dict['company']['user'].pop('password')
 	print(jobpost_dict)
 
-	return "check term"
+	return jsonify(
+		data={"jobpost": jobpost_dict},
+		message=f"Successfully created job post: {jobpost_dict['title']}",
+		status=201
+		), 201
