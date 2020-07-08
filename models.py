@@ -29,20 +29,20 @@ class JobSeekerInfo(Model):
 
 class CompanyInfo(Model):
   user=ForeignKeyField(User, backref="CompanyInfo")
-  name=CharField()
+  name=CharField(unique = True)
   description=CharField()
   tagline=CharField()
   address=CharField()
-  industry=CharField()
-  website=CharField()
-  linkedin=CharField()
-  twitter=CharField()
-  github=CharField()
-  facebook=CharField()
-  instagram=CharField()
-  pinterest=CharField()
-  youtube=CharField()
-  employer=CharField()
+  industry=CharField(null = True)
+  website=CharField(null = True)
+  linkedin=CharField(null = True)
+  twitter=CharField(null = True)
+  github=CharField(null = True)
+  facebook=CharField(null = True)
+  instagram=CharField(null = True)
+  pinterest=CharField(null = True)
+  youtube=CharField(null = True)
+  employer=CharField(null = True)
 
   class Meta:
     database = DATABASE
