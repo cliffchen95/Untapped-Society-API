@@ -25,18 +25,40 @@
 - payrange
 
 #### Company Information
-- ref to user(company)
+- ref to user(company): this is the user that has admin auth
 - name
-- description/industry
+- tagline
+- description
+- address
+- industry
+- website
+- linkedin
+- twitter
+- github
+- facebook
+- instagram
+- pinterest
+- youtube
+- employer: people authorized to post job with this company
 
 #### Job Application
 - ref to user(job seeker)
 - ref to position
+- note
 
 #### Job Position
 - ref to user(company)
 - title
 - description
+- location
+- type
+- function
+- career level
+- education (option)
+- compensation (option)
+- start date
+- 30 days expire: boolean, true if automatically expires in 30 days
+- remote: boolean, true if the position can be remote
 
 ---
 
@@ -51,3 +73,5 @@
 #### Jobseeker profile
 - /profile/create : create a profile for a jobseeker
 - /profile/update : update profile
+
+
