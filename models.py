@@ -31,6 +31,18 @@ class CompanyInfo(Model):
   user=ForeignKeyField(User, backref="CompanyInfo")
   name=CharField()
   description=CharField()
+  tagline=CharField()
+  address=CharField()
+  industry=CharField()
+  website=CharField()
+  linkedin=CharField()
+  twitter=CharField()
+  github=CharField()
+  facebook=CharField()
+  instagram=CharField()
+  pinterest=CharField()
+  youtube=CharField()
+  employer=CharField()
 
   class Meta:
     database = DATABASE
