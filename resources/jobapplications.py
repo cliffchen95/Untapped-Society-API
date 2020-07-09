@@ -11,18 +11,15 @@ jobapplications = Blueprint('jobapplication', 'jobapplication')
 
 # create 
 # when user clicks apply, it adds their profile info onto the job post they click on
+# id in route is job post id
 @jobapplications.route('/<id>/create', methods=['POST'])
 @login_required
 def apply_to_job(id):
-	# current user details need to be associated with job post that matches the id?
 
 	jobpost = models.JobPost.get_by_id(id)
-	print(current_user.id)
 
 	userprofile = models.JobSeekerInfo.get(
 		models.JobSeekerInfo.user_id == current_user.id)
-
-	print("userprofile", userprofile)
 
 	jobapplication = JobApplication.create(
 		jobseeker = current_user.id,
@@ -38,10 +35,45 @@ def apply_to_job(id):
 
 # read
 # person who posted job should be able to see all applicants 
+# id in route is job post id
 @jobapplications.route('/<id>/all', methods=['GET'])
 @login_required
 def view_applications(id):
 	#if the current user is associated w the job post company id 
 
+	jobpost = models.JobPost.get_by_id(id)
+	jobpost_dict = model_to_dict(jobpost)
 
-	return "view_applications"
+	if current_user.id == jobpost_dict['company']['user']['id']:
+		
+		#get all applications that are associated with this job post
+		applications = JobApplication.get(JobApplication.id == id)
+		applications_dict = model_to_dict(applications)
+
+		return jsonify(applications_dict)
+		
+	else:
+		return jsonify(
+			data={},
+			message="Job post not avaliable to view",
+			status=400
+		), 400
+
+
+
+
+
+
+
+
+	return jsonify(jobpost_dict)
+
+
+
+
+
+
+
+
+
+
