@@ -51,3 +51,53 @@ def view_all_jobs():
 		message = f"Found all {len(jobs_dict)} posts",
 		status = 200
 	), 200
+
+#update post
+@jobposts.route('/update/<id>', methods=['PATCH'])
+@login_required
+def update_jobpost(id):
+	payload = request.get_json()
+	print('HELLO')
+	print(payload)
+	print('JobPost.id', JobPost.id)
+	print('uhhh')
+
+	# try: # if post id == id AND if company's user id = current user id
+	# 	JobPost.update(payload).where(
+	# 		(JobPost.id == id) & (
+	# 		JobPost.company.user.id == current_user.id)
+	# 	).execute()
+		
+	# 	updated = JobPost.get_by_id(id)
+
+
+	# 	print(id)
+
+	# 	return "check term"
+
+	# except models.DoesNotExist:
+    
+	# 	return jsonify(
+	# 		data={},
+	# 		message="Post not avaliable to update",
+	# 		status=400
+	# 	), 400
+
+	return "check term"
+
+
+
+#destroy post
+@jobposts.route('/delete/<id>', methods=['DELETE'])
+@login_required
+def delete_jobpost(id):
+	
+
+
+
+
+
+
+
+
+
