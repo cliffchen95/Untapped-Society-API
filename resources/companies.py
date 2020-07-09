@@ -65,7 +65,7 @@ def delete_company(id):
         message=f"The current user does not have permission to delete the company info",
         status=403
       ), 403
-      
+
   except models.DoesNotExist:
     return jsonify(
       data={},
@@ -73,4 +73,40 @@ def delete_company(id):
       status=401
     ), 401
 
-  return "check terminal"
+## companies/update
+## Company info update
+@companies.route('/update/<id>', methods=['PATCH'])
+@login_required
+def update_company(id):
+  payload = request.get_json()
+  try:
+    company_info = CompanyInfo.get_by_id(id)
+    company_info_dict = model_to_dict(company_info)
+
+    ## the current user is the admin of the company
+    if company_info_dict['user']['id'] == current_user.id:
+      ## update the company info
+      CompanyInfo.update(payload).where(
+        CompanyInfo.id == id).execute()
+      company_info = CompanyInfo.get_by_id(id)
+      company_info_dict = model_to_dict(company_info)
+      company_info_dict['user'].pop('password')
+
+      return jsonify(
+        data={"updated_company": company_info_dict},
+        message=f"Updated company with name {company_info_dict['name']}",
+        status=200
+      ), 200
+
+    else:
+      return jsonify(
+        data={},
+        message=f"The current user does not have permission to update the company info",
+        status=403
+      ), 403    
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message=f"Company with id {id} does not exist",
+      status=401
+    ), 401
