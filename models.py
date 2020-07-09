@@ -51,13 +51,19 @@ class JobPost(Model):
   company=ForeignKeyField(CompanyInfo, backref="Posting")
   title=CharField()
   description=CharField()
+  function=CharField()
+  officelocation=CharField()
+  jobtype=CharField()
+  educationlevel=CharField()
+  careerlevel=CharField()
+  compensation=IntegerField()
 
   class Meta:
     database = DATABASE
 
 class JobApplication(Model):
-  user=ForeignKeyField(User, backref="Application")
   position=ForeignKeyField(JobPost, backref="Job")
+  jobseeker=ForeignKeyField(JobSeekerInfo, backref="JobSeeker")
 
   class Meta:
     database = DATABASE
