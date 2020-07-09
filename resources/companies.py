@@ -39,3 +39,38 @@ def create_company():
     message=f"Successfully set up company for with name {company_dict['name']}",
     status=201
   ), 201
+
+## companies/delete
+## Company delete route
+@companies.route('delete/<id>', methods=['DELETE'])
+@login_required
+def delete_company(id):
+  try:
+    company_info = CompanyInfo.get_by_id(id)
+    company_info_dict = model_to_dict(company_info)
+
+    ## the current user is the admin of the company
+    if company_info_dict['user']['id'] == current_user.id:
+      ## delete the company info
+      company_info.delete_instance()
+      return jsonify(
+        data={},
+        message=f"Deleted company with name {company_info_dict['name']}",
+        status=200
+      ), 200
+
+    else:
+      return jsonify(
+        data={},
+        message=f"The current user does not have permission to delete the company info",
+        status=403
+      ), 403
+      
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message=f"Company with id {id} does not exist",
+      status=401
+    ), 401
+
+  return "check terminal"
