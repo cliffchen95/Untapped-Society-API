@@ -42,6 +42,9 @@ app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(profiles, url_prefix='/api/v1/profiles')
 app.register_blueprint(jobposts, url_prefix='/api/v1/jobposts')
 app.register_blueprint(companies, url_prefix='/api/v1/companies')
+app.register_blueprint(jobapplications, url_prefix='/api/v1/jobapplications')
+
+
 
 @app.route('/')
 def hello():

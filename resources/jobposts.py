@@ -83,8 +83,6 @@ def update_jobpost(id):
 
 	return "check term"
 
-
-
 #destroy post
 @jobposts.route('/delete/<id>', methods=['DELETE'])
 @login_required
@@ -101,19 +99,11 @@ def delete_jobpost(id):
 			message = f"Job post {jobpost_dict['title']} successfully deleted",
 			status = 200
 			), 200
+
 	else:
+
 		return jsonify(
 			data = {},
 			message = f"The current user does not have permission to delete this job post",
 			status = 403
 		), 403
-
-
-
-
-
-
-
-
-
-
