@@ -57,41 +57,46 @@ def view_all_jobs():
 @login_required
 def update_jobpost(id):
 	payload = request.get_json()
-	print('HELLO')
-	print(payload)
+	# print('HELLO')
+	print('payload', payload)
+	# print(JobPost)
 	print('JobPost.id', JobPost.id)
-	print('uhhh')
+	# print('uhhh')
 
-	# try: # if post id == id AND if company's user id = current user id
-	# 	JobPost.update(payload).where(
-	# 		(JobPost.id == id) & (
-	# 		JobPost.company.user.id == current_user.id)
-	# 	).execute()
+	# test = JobPost.get_by_id(id)
+
+	# print('TEST', model_to_dict(test))
+
+	try: # if post id == id AND if company's user id = current user id
+		JobPost.update(payload).where(
+			(JobPost.id == id) & (
+			JobPost.company_id == current_user.id)
+		).execute()
 		
-	# 	updated = JobPost.get_by_id(id)
+		updated = JobPost.get_by_id(id)
+		updated_dict = model_to_dict(updated)
+		updated_dict['company']['user'].pop('password')
 
 
-	# 	print(id)
+		return jsonify(updated_dict)
 
-	# 	return "check term"
-
-	# except models.DoesNotExist:
+	except models.DoesNotExist:
     
-	# 	return jsonify(
-	# 		data={},
-	# 		message="Post not avaliable to update",
-	# 		status=400
-	# 	), 400
+		return jsonify(
+			data={},
+			message="Post not avaliable to update",
+			status=400
+		), 400
 
 	return "check term"
 
 
 
 #destroy post
-@jobposts.route('/delete/<id>', methods=['DELETE'])
-@login_required
-def delete_jobpost(id):
-	
+# @jobposts.route('/delete/<id>', methods=['DELETE'])
+# @login_required
+# def delete_jobpost(id):
+
 
 
 
