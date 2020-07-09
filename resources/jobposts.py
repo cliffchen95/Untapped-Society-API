@@ -57,20 +57,13 @@ def view_all_jobs():
 @login_required
 def update_jobpost(id):
 	payload = request.get_json()
-	# print('HELLO')
-	print('payload', payload)
-	# print(JobPost)
-	print('JobPost.id', JobPost.id)
-	# print('uhhh')
 
-	# test = JobPost.get_by_id(id)
-
-	# print('TEST', model_to_dict(test))
+	print(current_user)
 
 	try: # if post id == id AND if company's user id = current user id
 		JobPost.update(payload).where(
 			(JobPost.id == id) & (
-			JobPost.company_id == current_user.id)
+			JobPost.company_id == current_user.id) # is this correct
 		).execute()
 		
 		updated = JobPost.get_by_id(id)
@@ -93,9 +86,27 @@ def update_jobpost(id):
 
 
 #destroy post
-# @jobposts.route('/delete/<id>', methods=['DELETE'])
-# @login_required
-# def delete_jobpost(id):
+@jobposts.route('/delete/<id>', methods=['DELETE'])
+@login_required
+def delete_jobpost(id):
+
+	jobpost = JobPost.get_by_id(id)
+	jobpost_dict = model_to_dict(jobpost)
+
+	if jobpost_dict['company']['user']["id"] == current_user.id:
+		jobpost.delete_instance()
+
+		return jsonify(
+			data = {},
+			message = f"Job post {jobpost_dict['title']} successfully deleted",
+			status = 200
+			), 200
+	else:
+		return jsonify(
+			data = {},
+			message = f"The current user does not have permission to delete this job post",
+			status = 403
+		), 403
 
 
 
