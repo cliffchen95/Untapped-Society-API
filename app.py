@@ -6,6 +6,7 @@ from resources.users import users
 from resources.profiles import profiles
 from resources.jobposts import jobposts
 from resources.companies import companies
+from resources.jobapplications import jobapplications
 
 PORT=8000
 DEBUG=True
