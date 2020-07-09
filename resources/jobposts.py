@@ -14,7 +14,7 @@ jobposts = Blueprint('jobpost', 'jobpost')
 @login_required
 def jobpost_create():
 	payload = request.get_json()
-	print('payload', payload)
+
 	jobpost = JobPost.create(
 		company=current_user.id,
 		title=payload['title'],
@@ -29,10 +29,25 @@ def jobpost_create():
 
 	jobpost_dict = model_to_dict(jobpost)
 	jobpost_dict['company']['user'].pop('password')
-	print(jobpost_dict)
 
 	return jsonify(
 		data={"jobpost": jobpost_dict},
 		message=f"Successfully created job post: {jobpost_dict['title']}",
 		status=201
 		), 201
+
+# view all jobs posted
+@jobposts.route('/all', methods=['GET'])
+def view_all_jobs():
+	jobs = models.JobPost.select()
+	
+	jobs_dict = [model_to_dict(job) for job in jobs]
+	
+	for job in jobs_dict:
+		job['company']['user'].pop('password')
+
+	return jsonify(
+		data = jobs_dict,
+		message = f"Found all {len(jobs_dict)} posts",
+		status = 200
+	), 200
