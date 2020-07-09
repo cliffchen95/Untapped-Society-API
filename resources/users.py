@@ -27,7 +27,7 @@ def user_create():
     created_user = User.create(
       username=payload['username'],
       password=payload['password'],
-      jobseeker=True
+      jobseeker=payload['jobseeker']
     )
 
     login_user(created_user)
