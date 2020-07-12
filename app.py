@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_login import LoginManager
+from flask_cors import CORS
 
 import models
 from resources.users import users
@@ -39,12 +40,18 @@ def unauthorized():
     status=401
   ), 401
 
+## CORS implementation
+CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(profiles, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(jobposts, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(companies, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(jobapplications, origins=['http://localhost:3000'], supports_credentials=True)
+
 app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(profiles, url_prefix='/api/v1/profiles')
 app.register_blueprint(jobposts, url_prefix='/api/v1/jobposts')
 app.register_blueprint(companies, url_prefix='/api/v1/companies')
 app.register_blueprint(jobapplications, url_prefix='/api/v1/jobapplications')
-
 
 
 @app.route('/')
