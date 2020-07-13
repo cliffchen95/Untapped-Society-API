@@ -110,3 +110,25 @@ def update_company(id):
       message=f"Company with id {id} does not exist",
       status=401
     ), 401
+
+## companies/<id>
+## Get company info with <id>
+@companies.route('/<id>', methods=['GET'])
+@login_required
+def get_company(id):
+  try:
+    company_info = CompanyInfo.get_by_id(id)
+    company_info_dict = model_to_dict(company_info)
+    company_info_dict['user'].pop('password')
+
+    return jsonify(
+      data={"company": company_info_dict},
+      message=f"Successfully found company with id {id}",
+      status=200
+    ), 200
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message="Invalid id",
+      status=404
+    ), 404
