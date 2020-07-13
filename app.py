@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_login import LoginManager
-
+import os
 import models
 from resources.users import users
 from resources.profiles import profiles
@@ -13,7 +13,7 @@ DEBUG=True
 
 app = Flask(__name__)
 
-app.secret_key = "somekey"
+app.secret_key = os.environ.get('SECRET_KEY')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
