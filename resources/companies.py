@@ -110,3 +110,60 @@ def update_company(id):
       message=f"Company with id {id} does not exist",
       status=401
     ), 401
+
+## companies/<id>
+## Get company info with <id>
+@companies.route('/<id>', methods=['GET'])
+@login_required
+def get_company(id):
+  try:
+    company_info = CompanyInfo.get_by_id(id)
+    company_info_dict = model_to_dict(company_info)
+    company_info_dict['user'].pop('password')
+
+    return jsonify(
+      data={"company": company_info_dict},
+      message=f"Successfully found company with id {id}",
+      status=200
+    ), 200
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message="Invalid id",
+      status=404
+      ), 404
+
+## /companies/search
+## look for company by name, retun a list of company with name contain the search
+## query, results only contains id and name
+@companies.route('/search', methods=['GET'])
+@login_required
+def search_company():
+  query = request.args.get('query')
+  print(query)
+  if query == "":
+    return jsonify(
+      data={},
+      message="No search query provide",
+      status=204
+      ), 204
+  try:
+    companies = (
+      CompanyInfo.select(CompanyInfo.id, CompanyInfo.name)
+      .where(CompanyInfo.name.contains(query))
+      )
+    ## only get the id and the name from search results
+    companies = [model_to_dict(company, fields_from_query=companies) for company in companies]
+
+    return jsonify(
+      data=companies,
+      message=f"Successfully found {len(companies)}",
+      status=200
+      ), 200
+
+  except models.DoesNotExist:
+    return jsonify(
+      data={},
+      message="No company found",
+      status= 204
+      ), 204
