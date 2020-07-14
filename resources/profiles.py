@@ -65,4 +65,18 @@ def update_profile(id):
       status=400
     ), 400
 
+## profiles/get
+## Get current user's profile to display details
+@profiles.route('/view', methods=['GET'])
+@login_required
+def view_profile():
+
+  profile = models.JobSeekerInfo.get(JobSeekerInfo.id == current_user.id)
+  profile_dict = model_to_dict(profile)
+  profile_dict['user'].pop('password')
+
+
+
+  return jsonify(profile_dict)
+
 
