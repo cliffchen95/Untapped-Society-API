@@ -15,6 +15,7 @@ profiles = Blueprint('profiles', 'profiles')
 @login_required
 def create_profile():
   payload = request.get_json()
+  print(payload)
   profile = JobSeekerInfo.create(
     education=payload['education'],
     name=payload['name'],
@@ -26,6 +27,7 @@ def create_profile():
     skillset=payload['skillset'],
     industry=payload['industry'],
     payrange=payload['payrange'],
+    photo=payload['photo'],
     user=current_user.id
   )
   profile_dict = model_to_dict(profile)
@@ -67,16 +69,19 @@ def update_profile(id):
 
 ## profiles/get
 ## Get current user's profile to display details
-@profiles.route('/view', methods=['GET'])
+@profiles.route('/view/<id>', methods=['GET'])
 @login_required
-def view_profile():
+def view_profile(id):
+    print('YAY')
+    profile = models.JobSeekerInfo.get(JobSeekerInfo.id == current_user.id)
+    profile_dict = model_to_dict(profile)
+    profile_dict['user'].pop('password')
+    
+    return jsonify(profile_dict)
 
-  profile = models.JobSeekerInfo.get(JobSeekerInfo.id == current_user.id)
-  profile_dict = model_to_dict(profile)
-  profile_dict['user'].pop('password')
+    return 'no'
 
 
 
-  return jsonify(profile_dict)
 
 

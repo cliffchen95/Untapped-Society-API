@@ -18,6 +18,7 @@ def create_company():
   company = CompanyInfo.create(
     user=current_user.id,
     name=payload['name'],
+    photo=payload['photo'],
     description=payload['description'],
     tagline=payload['tagline'],
     address=payload['address'],
