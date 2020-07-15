@@ -1,7 +1,6 @@
 import models
 
 User = models.User
-
 from flask import Blueprint, request, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 

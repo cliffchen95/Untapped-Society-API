@@ -16,14 +16,14 @@ def jobpost_create():
 	payload = request.get_json()
 
 	jobpost = JobPost.create(
-		company=current_user.id,
+		company=payload['company'],
 		title=payload['title'],
 	  description=payload['description'],
-	  function=payload['function'],
-	  officelocation=payload['officelocation'],
-	  jobtype=payload['jobtype'],
-	  educationlevel=payload['educationlevel'],
-	  careerlevel=payload['careerlevel'],
+	  function=payload['functionality'],
+	  officelocation=payload['officeLocation'],
+	  jobtype=payload['jobType'],
+	  educationlevel=payload['educationLevel'],
+	  careerlevel=payload['careerLevel'],
 	  compensation=payload['compensation']
 		)
 
