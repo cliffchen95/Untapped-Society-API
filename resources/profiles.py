@@ -15,6 +15,7 @@ profiles = Blueprint('profiles', 'profiles')
 @login_required
 def create_profile():
   payload = request.get_json()
+  print(payload)
   profile = JobSeekerInfo.create(
     education=payload['education'],
     name=payload['name'],
@@ -26,6 +27,7 @@ def create_profile():
     skillset=payload['skillset'],
     industry=payload['industry'],
     payrange=payload['payrange'],
+    photo=payload['photo'],
     user=current_user.id
   )
   profile_dict = model_to_dict(profile)

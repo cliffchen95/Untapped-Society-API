@@ -22,6 +22,7 @@ class JobSeekerInfo(Model):
   skillset=CharField()
   industry=CharField()
   payrange=CharField()
+  photo=TextField()
   user=ForeignKeyField(User, backref="JobSeekerInfo")
 
   class Meta:
@@ -33,6 +34,7 @@ class CompanyInfo(Model):
   description=CharField()
   tagline=CharField()
   address=CharField()
+  photo=TextField()
   industry=CharField(null = True)
   website=CharField(null = True)
   linkedin=CharField(null = True)
