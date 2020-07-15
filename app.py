@@ -1,5 +1,7 @@
 from flask import Flask, jsonify
 from flask_login import LoginManager
+
+import os
 from flask_cors import CORS
 
 import models
@@ -14,7 +16,7 @@ DEBUG=True
 
 app = Flask(__name__)
 
-app.secret_key = "somekey"
+app.secret_key = os.environ.get('SECRET_KEY')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
