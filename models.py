@@ -7,6 +7,7 @@ class User(UserMixin, Model):
   username=CharField(unique=True)
   password=CharField()
   jobseeker=BooleanField() ## True if the User is a Job seeker
+  company=CharField(null=True)
   
   class Meta:
     database = DATABASE
