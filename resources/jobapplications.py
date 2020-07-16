@@ -30,6 +30,7 @@ def apply_to_job(id):
 	jobapplication_dict['position']['company']['user'].pop('password')
 	jobapplication_dict['jobseeker']['user'].pop('password')
 
+	print('jobapplication_dict', jobapplication_dict)
 	return jsonify(jobapplication_dict)
 	# return "hi"
 
@@ -44,24 +45,24 @@ def view_applications(id):
 	jobpost_dict = model_to_dict(jobpost)
 
 	#if the current user is associated w the job post company id 
-	if current_user.id == jobpost_dict['company']['user']['id']:
+	# if current_user.id == jobpost_dict['company']['user']['id']:
 		
 		#get all applications that are associated with this job post
-		applications = JobApplication.select().where(JobApplication.position_id == id)
-		application_dicts = [model_to_dict(application) for application in applications]
+	applications = JobApplication.select().where(JobApplication.position_id == id)
+	application_dicts = [model_to_dict(application) for application in applications]
 
-		for application_dict in application_dicts:
-			application_dict['jobseeker']['user'].pop('password')
-			application_dict['position']['company']['user'].pop('password')
+	for application_dict in application_dicts:
+		application_dict['jobseeker']['user'].pop('password')
+		application_dict['position']['company']['user'].pop('password')
 
-		return jsonify(application_dicts)
+	return jsonify(application_dicts)
 
-	else:
-		return jsonify(
-			data={},
-			message="Job post not avaliable to view",
-			status=400
-		), 400
+	# else:
+	# 	return jsonify(
+	# 		data={},
+	# 		message="Job post not avaliable to view",
+	# 		status=400
+	# 	), 400
 
 
 	return jsonify(jobpost_dict)
