@@ -43,11 +43,11 @@ def unauthorized():
   ), 401
 
 ## CORS implementation
-CORS(users, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com/"], supports_credentials=True)
-CORS(profiles, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com/"], supports_credentials=True)
-CORS(jobposts, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com/"], supports_credentials=True)
-CORS(companies, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com/"], supports_credentials=True)
-CORS(jobapplications, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com/"], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://untapped-society.herokuapp.com'], supports_credentials=True)
+CORS(profiles, origins=['http://localhost:3000', 'https://untapped-society.herokuapp.com'], supports_credentials=True)
+CORS(jobposts, origins=['http://localhost:3000', 'https://untapped-society.herokuapp.com'], supports_credentials=True)
+CORS(companies, origins=['http://localhost:3000', 'https://untapped-society.herokuapp.com'], supports_credentials=True)
+CORS(jobapplications, origins=['http://localhost:3000', "https://untapped-society.herokuapp.com"], supports_credentials=True)
 
 app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(profiles, url_prefix='/api/v1/profiles')
