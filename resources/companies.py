@@ -119,9 +119,16 @@ def update_company(id):
 def get_company(id):
   try:
     company_info = CompanyInfo.get_by_id(id)
+    job_postings_query = company_info.Posting
+    job_posts = []
+    for job_post in job_postings_query:
+      job_post = model_to_dict(job_post)
+      job_post.pop('company')
+      job_posts.append(job_post)
+      
     company_info_dict = model_to_dict(company_info)
     company_info_dict['user'].pop('password')
-
+    company_info_dict['jobposts'] = job_posts
     return jsonify(
       data={"company": company_info_dict},
       message=f"Successfully found company with id {id}",
@@ -168,3 +175,4 @@ def search_company():
       message="No company found",
       status= 204
       ), 204
+
