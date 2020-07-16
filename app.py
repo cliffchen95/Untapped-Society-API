@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 from flask_login import LoginManager
 
 import os
@@ -55,10 +55,23 @@ app.register_blueprint(jobposts, url_prefix='/api/v1/jobposts')
 app.register_blueprint(companies, url_prefix='/api/v1/companies')
 app.register_blueprint(jobapplications, url_prefix='/api/v1/jobapplications')
 
+@app.before_request
+def before_request():
+  g.db = models.DATABASE
+  g.db.connect()
+
+@app.after_request
+def after_request(response):
+  g.db.close()
+  return response
 
 @app.route('/')
 def hello():
   return 'Server running'
+
+if 'ON_HEROKU' in os.environ: 
+  print('\non heroku!')
+  models.initialize()
 
 if __name__ == '__main__':
   models.initialize()
