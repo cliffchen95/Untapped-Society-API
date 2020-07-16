@@ -19,11 +19,11 @@ def jobpost_create():
 		company=payload['company'],
 		title=payload['title'],
 	  description=payload['description'],
-	  function=payload['functionality'],
-	  officelocation=payload['officeLocation'],
-	  jobtype=payload['jobType'],
-	  educationlevel=payload['educationLevel'],
-	  careerlevel=payload['careerLevel'],
+	  function=payload['function'],
+	  officelocation=payload['officelocation'],
+	  jobtype=payload['jobtype'],
+	  educationlevel=payload['educationlevel'],
+	  careerlevel=payload['careerlevel'],
 	  compensation=payload['compensation']
 		)
 

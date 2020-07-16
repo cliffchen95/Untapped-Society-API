@@ -16,7 +16,7 @@ DEBUG=True
 
 app = Flask(__name__)
 
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = "os.environ.get('SECRET_KEY')"
 
 login_manager = LoginManager()
 login_manager.init_app(app)
