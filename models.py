@@ -64,9 +64,9 @@ class JobPost(Model):
   function=CharField()
   officelocation=CharField()
   jobtype=CharField()
-  educationlevel=CharField()
-  careerlevel=CharField()
-  compensation=IntegerField()
+  educationlevel=CharField(null=True)
+  careerlevel=CharField(null=True)
+  compensation=IntegerField(null=True)
 
   class Meta:
     database = DATABASE
